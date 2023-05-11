@@ -3,4 +3,4 @@
   to = "/index.html"
   status = 200
   force = true
-  headers = { Authorization = "Basic thegovlab:{SHA}nKhyWxmX5HNHGdiF0i782Jo1dVo=" }
+  headers = { Authorization = "Basic thegovlab:$apr1$53yt16vb$x6DEqw.a7LMb1GOWJ3BD21" }
