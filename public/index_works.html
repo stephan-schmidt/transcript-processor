@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcript Processor</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+body {
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cline x1='0' y1='0' x2='1' y2='1' stroke='%23ffffff22' stroke-width='0.002' /%3E%3C/svg%3E");
+}
+
+    .header-image {
+      width: 256px;
+      height: 256px;
+      overflow: hidden;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .header-image img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      max-width: 512px;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <div class="container mx-auto py-20 px-4">
+    <div class="mb-12 text-center">
+      <div class="header-image">
+        <img src="https://cdn.discordapp.com/attachments/1105175072190238750/1106233509338697768/govlabdev_Transcript_Processor_1c5a258b-0955-4862-9fe9-46b564ab1869.png" alt="Transcript Processor">
+      </div>
+    </div>
+    <div class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 flex items-start">
+      <form id="upload-form" enctype="multipart/form-data">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="format">
+            Input Format
+          </label>
+          <select name="format" id="format" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="zoom_transcript">Zoom Transcript</option>
+            <option value="otter_ai_transcript">Otter.ai Transcript</option>
+            <option value="wudpecker_transcript">Wudpecker Transcript</option>
+            <option value="zoom_chat_transcript">Zoom Chat Transcript</option>
+            <option value="zoom_webvtt_transcript">Zoom WebVTT Transcript</option>
+          </select>
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="file">
+            Transcript File
+          </label>
+          <input type="file" name="file" id="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="flex items-center justify-between">
+
+          <button id="submit-btn" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Process Transcript
+          </button>
+        </div>
+      </form>
+    </div>
+    <div id="results-container" class="ml-8 mt-8 w-1/2">
+      <!-- Summaries will be inserted here -->
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('upload-form');
+    const resultsContainer = document.getElementById('results-container');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const response = await fetch('/process', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        const ws = new WebSocket(`ws://${location.host}`);
+        ws.onmessage = (event) => {
+    const summary = JSON.parse(event.data);
+
+    const speakerElement = document.createElement('h3');
+    speakerElement.textContent = summary.speaker;
+    speakerElement.classList.add('font-bold');
+    resultsContainer.appendChild(speakerElement);
+
+    const contentElement = document.createElement('p');
+    contentElement.textContent = summary.content;
+    resultsContainer.appendChild(contentElement);
+
+    const breakElement = document.createElement('br');
+    resultsContainer.appendChild(breakElement);
+  };
+      } else {
+        console.error('Error processing the transcript');
+      }
+    });
+  </script>
+</body>
+</html>

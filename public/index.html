@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transcript Processor</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+body {
+  background: linear-gradient(135deg, #141e30 0%, #7188a3 100%);
+  /* background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1 1'%3E%3Cline x1='0' y1='0' x2='1' y2='1' stroke='%23ffffff22' stroke-width='0.002' /%3E%3C/svg%3E"); */
+}
+
+.header-image {
+      width: 256px;
+      height: 256px;
+      overflow: hidden;
+      border-radius: 12px;
+      position: relative;
+      display
+    }
+
+    .header-image img {
+      position: absolute;
+      max-width: 512px;
+    }
+
+    .loader {
+      border-top-color: #3498db;
+      -webkit-animation: spinner 1.5s linear infinite;
+      animation: spinner 1.5s linear infinite;
+    }
+
+    @-webkit-keyframes spinner {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spinner {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  
+  <div class="container mx-auto py-20 px-4">
+    <h1 class="text-4xl mb-10 font-bold text-center text-white">Transcript Processor</h1>
+
+    <div class="mb-12 text-center">
+      <div class="flex justify-between">
+        <div class="header-image">
+          <img src="https://cdn.discordapp.com/attachments/1105175072190238750/1106233509338697768/govlabdev_Transcript_Processor_1c5a258b-0955-4862-9fe9-46b564ab1869.png" alt="Transcript Processor" style="clip-path: polygon(0 0, 50% 0, 50% 50%, 0 50%);">
+        </div>
+        <div class="header-image">
+          <img src="https://cdn.discordapp.com/attachments/1105175072190238750/1106233509338697768/govlabdev_Transcript_Processor_1c5a258b-0955-4862-9fe9-46b564ab1869.png" alt="Transcript Processor" style="clip-path: polygon(50% 0, 100% 0, 100% 50%, 50% 50%); left: -256px; top: 0;">
+        </div>
+        <div class="header-image">
+          <img src="https://cdn.discordapp.com/attachments/1105175072190238750/1106233509338697768/govlabdev_Transcript_Processor_1c5a258b-0955-4862-9fe9-46b564ab1869.png" alt="Transcript Processor" style="clip-path: polygon(0 50%, 50% 50%, 50% 100%, 0 100%); left: 0; top: -256px;">
+        </div>
+        <div class="header-image">
+          <img src="https://cdn.discordapp.com/attachments/1105175072190238750/1106233509338697768/govlabdev_Transcript_Processor_1c5a258b-0955-4862-9fe9-46b564ab1869.png" alt="Transcript Processor" style="clip-path: polygon(50% 50%, 100% 50%, 100% 100%, 50% 100%); left: -256px; top: -256px;">
+        </div>
+      </div>
+    </div>
+    
+    <div class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 flex items-start">
+      <form id="upload-form" enctype="multipart/form-data">
+     
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="format">
+            Input Format
+          </label>
+          <select name="format" id="format" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="zoom_transcript">Zoom Transcript</option>
+            <option value="otter_ai_transcript">Otter.ai Transcript</option>
+            <option value="wudpecker_transcript">Wudpecker Transcript</option>
+            <option value="zoom_chat_transcript">Zoom Chat Transcript</option>
+            <option value="zoom_webvtt_transcript">Zoom WebVTT Transcript</option>
+          </select>
+        </div>
+        <div class="mb-6">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="file">
+            Transcript File
+          </label>
+          <input type="file" name="file" id="file" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="flex items-center justify-between">
+
+          <button id="submit-btn" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Process Transcript
+          </button>
+        </div>
+      </form>
+      <div id="results-container" class="ml-8 mt-8 w-1/2">
+        <!-- Summaries will be inserted here -->
+        <div id="spinner" class="hidden loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+
+
+      </div>
+    </div>
+
+  </div>
+  
+  <script>
+    const spinner = document.getElementById('spinner');
+
+    const form = document.getElementById('upload-form');
+    const resultsContainer = document.getElementById('results-container');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      spinner.classList.remove('hidden');
+      // Open WebSocket connection when the form is submitted
+      const ws = new WebSocket(`ws://${location.host}/process`);
+
+      ws.onmessage = (message) => {
+        const summary = JSON.parse(message.data);
+        const summaryElement = document.createElement('div');
+        summaryElement.innerHTML = `<h3 class="font-bold">${summary.speaker}:</h3> ${summary.content}<br>`;
+        resultsContainer.appendChild(summaryElement);
+      };
+
+      ws.onopen = async () => {
+        const response = await fetch('/process', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          console.error('Error processing the transcript');
+          ws.close(); // Close WebSocket connection in case of an error
+        }
+      };
+
+      ws.onclose = () => {
+        spinner.classList.add('hidden');
+        console.log('WebSocket connection closed');
+      };
+    });
+  </script>
+</body>
+</html>
