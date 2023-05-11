@@ -4,7 +4,9 @@
   "description": "",
   "main": "zoom_attendance.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+
   },
   "author": "",
   "license": "ISC",
@@ -24,4 +26,5 @@
     "qs": "^6.11.1",
     "ws": "^8.13.0"
   }
+
 }
