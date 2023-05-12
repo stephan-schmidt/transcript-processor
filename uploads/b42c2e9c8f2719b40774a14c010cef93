@@ -1,0 +1,481 @@
+
+SB
+Sofia Bosch Gomez
+00:11
+Hi, Annie. How are you? Hey guys.
+AD
+Anirudh Dinesh
+00:14
+Hey.
+BN
+Beth Noveck (she/her)
+00:14
+Robert.
+SB
+Sofia Bosch Gomez
+00:17
+Hi, Stefan.
+SS
+Stephan Schmidt
+00:18
+Hi, Sophia. Hey, honey.
+AD
+Anirudh Dinesh
+00:21
+Hello, good morning.
+SS
+Stephan Schmidt
+00:25
+I didn't know my woodpecker comes in here, sorry.
+AD
+Anirudh Dinesh
+00:27
+Your woodpeckers followed us, yeah.
+SS
+Stephan Schmidt
+00:29
+Yeah, Do you mind, Robert? Like woodpecker or fathom joints here? Oh.
+RB
+Robert Bjarnason
+00:35
+No, no, no, no. OK.
+BN
+Beth Noveck (she/her)
+00:37
+Hi so I just got off. I just got off a call with a bunch of people who are going to do a series of engagements for for for what to call it for Open AI and a couple of the other labs they have buy in to do some large scale engagements around the future of Chachi, PT and large language models. So this is so we'd love to dive into this conversation because I'm persuading them to use all our ideas for that and we just got totally bogged down in the question of what's the question. It's incredibly difficult. So I suggested that you guys would all help with that when we figure it out. But that has the potential to attract a very, very large audience. So maybe we can save a couple minutes to talk about that afterwards. So do we have I know what's on my agenda for this call but Ani, Stefan, Sophia, do you have an agenda or ready Robert for this call or I think we're we're going to.
+RB
+Robert Bjarnason
+01:56
+Give you a quick status update and then I think you were going to discuss like timelines and that's good. If we have, we know some dates already, we'll just make sure that all works out.
+BN
+Beth Noveck (she/her)
+02:08
+Yeah that's the the main, the major things we yeah. So status update from you what are our most immediate needs including I wanna talk about this project, this new project and and then what's doable in terms of you know especially some of the UX revisions I'm hoping we can talk about per minute. OK, status update, yay.
+RB
+Robert Bjarnason
+02:32
+Yeah. So, yeah. So basically I'm. So there's two sort of major things we're working on just finalizing the upgrade itself. So it's it's all running now in in you know talker and we fixed fixed several issues that were in the first release we did and then there's some minor things we're working on. So it's definitely we are definitely going to be able to you know have a you know version to. You know, well I basically sent to you for testing, you know before the end of this week based on what we spoke about in terms of the list of things that we were looking at. But I knew and this could be talked because you already you were talking about one specific user interface issue also that you hadn't sort of finished discussing also internally. So it's good to get clarification on that you know what to do with that magic number.
+BN
+Beth Noveck (she/her)
+03:34
+Yeah, sorry, the magic number needs to go away. I mean, the magic number needs to be hidden magic numbers, completely and spectacularly useless and confusing to people. I mean, it's mathematically interesting and relevant, but ordinary. It confuses the shit out of ordinary people, so it does not need to be there.
+RB
+Robert Bjarnason
+03:55
+Absolutely so, so, so that's no problem. But there was something else as well Andy, wasn't it? Or was it just that that you were thinking about in terms of you, you, you, you straight to face?
+AD
+Anirudh Dinesh
+04:06
+No, it was just figuring out what the best way is to represent that. I mean, we we we would just have the rank order list without the number as the first thing. But also trying to figure out what other ways we can visualize that information in a way that's useful to people. Yeah.
+RB
+Robert Bjarnason
+04:23
+Yeah, yeah, good. I mean I'm basically sort of replicating the, you know the old charts that were written with this non open source like system. So they will all be there, the old charts. But yeah, I mean I mean whatever ideas you have in terms of that, but then so in terms of like our next class or what we would like to do sort of quite. Especially if it would be a new big project was to write a new web app. A very simple web app that only deals with the user facing, not the admin stuff. We connect it to another admin web app later, but only the user facing one. So. So both we can then both deploy that and we'll have that as a part of the standard all our tiers packets, but we can also then deploy that web app on our cloud server with the AOI, you know the pairwise API back end. So but it will still totally be standalone as well, but you know that's going to be sort of a bit of work, I mean it's not that complicated. User interface, it's not a lot of functions that are in it. I mean, that's one of the appeals of all our ideas is how simple it is. But if when we go into this process, it would be great to have you guys just absolutely maybe we could like somehow sort of design that together.
+AD
+Anirudh Dinesh
+06:01
+Yeah, the only the well, there's many things I think we can do to test what's working, what's not working. One of the things we've learned in the past is just adding having some space to add very short instructions for what we expect people to do as soon as they land on that page. It was hard for us to try and Stephan have tried to figure out you know can we edit the front end to somehow have instructions within the. We usually have it embedded on some other website. So we almost always have the instructions. After the embed we have to then you know we we add the instructions later, but if there's a way to include it within the app itself.
+RB
+Robert Bjarnason
+06:37
+yeah i mean yeah absolutely i mean for sure and and i think you know one of the and we would be thinking about sort of mobile first design because that's where like seventy five eighty percent of people are going to be you know using it as then you know to think about it in terms of how we could also visually sort of lead people forward i mean yeah some people maybe twenty thirty percent read some introduction tax maybe five percent click on the help icon and to really read everything but but you know if you can find a way to make this you know sort of more natural in terms of then when they get the result then we can have some sort of a good visualization of that but anyway i'm already started to sort of you know think about it you know
+SS
+Stephan Schmidt
+07:27
+Can I ask a question, Robert? Yeah, so I think one of the major challenges we faced was like the application itself went really well, like it collected all the data. It basically like we had like sets of thousands of data points from users etc. Where we really face challenge was like the servers to generate a report or generate an export of that data. Brought it to heat up or mostly sometimes often failed that we could just export these huge data sets. So I really went deep dive into MySQL and tweaked something in the database parameters collected it from. From all sorts of inputs. So I wonder like, did you encounter the same thing? I mean, I don't know if you probably have not worked with these large data sets.
+RB
+Robert Bjarnason
+08:20
+Yeah, well no, I don't have a big data, big data set. But The thing is that just moving from Rupee and Rails 1 to Rupee on Rails 2 really speed it up the back end process. And then moving from rupee two to rupee three, which we also did in this upgrade that also really speeded it up. But in this case, I wonder if it's just what's missing in the MySQL is just a couple of indexes, you know, to make the look up, you know, faster. So if the bottleneck was in the rupee code, it's very, very likely to be a lot faster now. I mean, it will be a lot faster for sure because it's rupee one to rupee 3. Is this like? you know that's you know twenty thirty x or something you know like crazy you know so even more in some cases actually and so yeah and also one thing that comes out of this comes in this upgrade is a plausible analytics well both back and it's a part of the docker compose but also built into the app where Instead of using Google Analytics, we're using this open source plausible analytics, which is one of the best open source. I mean they're also a commercial service, you know, they offer clutters, but all the software is open source and which gives you a really great simple user interface to analyzing campaigns and things like that. And we even have the same sort of we're using the same analytics as we use in your priorities. So we also have those sort of campaign features as well where we. Where you can create like a UTM campaign directly in the tool you know, which is always the talents and for any. As you guys know.
+AD
+Anirudh Dinesh
+10:13
+Can I can I suggest that Sofia, can you share the the timeline for the immediate project so we can make sure we have all our bases covered for that and then start sort of making a punch list for what's on the road map next after that?
+SB
+Sofia Bosch Gomez
+10:28
+Yes, absolutely. So the timeline was kind of extended a little bit. So we're not in as much as a rush as before we have I. Think most of May so that it would happen in June. And yes, they they already have kind of a robust set of questions that would feed the tool. So it's basically more building the outreach campaign and putting together the tool on a website so that it it becomes functional.
+RB
+Robert Bjarnason
+11:02
+How is the hosting? What is the hosting situation with that? You know protect is. Are you hosting that somewhere already or?
+AD
+Anirudh Dinesh
+11:12
+We don't at the moment. There's nothing online, but we make, yeah.
+RB
+Robert Bjarnason
+11:17
+I mean we are gonna you know as soon as we have the our versions of the production ready you know then we will have a cloud you know set up as as all our ideas has now you know basically like a clone of that effectively you know but just running the latest you know versions and. and matt you know talked about it at some time you know at some point if this all goes well obviously then then he would move the main domain over to that but but let's see just how this goes let's get this out we also need to think about in terms of you know because you know matt has been sort of c c m a on many of the requests that he's getting for the tools from just random people that well they're not really random it's university people i mean like ninety percent and then asking about yeah some statistics and things that are coming out of the tool you know in terms of exports you know like somebody at least two or three people who had troubles with csv exports you know so there's a bit of like a support element there that we need to figure out but but yeah
+AD
+Anirudh Dinesh
+12:34
+i think yeah we probably we can use the the sort of version that you're setting up in the cloud my only concern there is we typically will embed the tool on some other domain name that we have for a specific project so in the past we had it for example that your education your voice dot org but i think in some cases when we embedded the tool from all our ideas start over g i think because of some cross like scripting issues it didn't embed correctly i don't know if that's still a concern
+RB
+Robert Bjarnason
+13:06
+If that's I mean that shouldn't be the case, I mean, I mean you can either. I mean, I mean if you use you know cloud flare and that's set up which is that's the simplest you know then. Yeah, I mean that. I mean, yeah, if there's errors that come up with that, then we'll fix that. But I don't think that's going to be an issue in this case, you know, But because, I mean, yeah, there might be some like instances where like some of the scripts would be hard coded with a link. So you would have like you would be hosting it on a domain X and then in all our ideas there would be, you know, you would load the file, the HTML. and there would be a hard coded path to all our ideas dot org like that would cause security errors you know for example that's not going to be a case at least that not not the new version that's all relative paths everywhere it was the first thing we did because obviously we have no control over all her ideas domain at this point
+AD
+Anirudh Dinesh
+14:15
+So I think as as soon as we can test that out would be great. We, you know, we'll try it out on one of our existing domains, we'll just put in an iframe, see if it works. As long as that works then we're fine.
+RB
+Robert Bjarnason
+14:28
+Yeah, I mean, I mean one of the things things would be if you could help us organize you know sort of from as I say sort of from next week we sort of start of May that. Some more sort of maybe involved like also user testing or creating like a bit longer service for example, you know, you know things like that and and yeah, so yeah, that's been a problem.
+AD
+Anirudh Dinesh
+15:00
+OK, so we'll we'll make a plan for testing starting next week, both the user testing as well as technically whether we're able. Embed embedded correctly stuff.
+RB
+Robert Bjarnason
+15:11
+Yeah, yeah, yeah, yeah, exactly. We'll we'll, yeah, yeah, no, we should be able to do that right away actually. Yeah, I can give you like a CNAME address in that you could connect to, so.
+SS
+Stephan Schmidt
+15:25
+OK, are you are you planning to release the docker version? Kind of like as a package, so it would be possible to test it on a known server as well?
+RB
+Robert Bjarnason
+15:35
+Yeah, well, it's gonna be like. I mean how it works is that you can download all our ideas or the actually it's on to pairwise API then you download that and then you basically go into the deployment and docker folder and just do docker compose app and then it will install everything. Just there, right there on that machine that you're there. So I'm not going to be releasing at least on the Docker Hub, you know, that's sort of an image, but it's going to be very easy to build it locally, to build an image locally just by running Docker Composer and so yeah, and that will also include like Plausible and Clickhouse, so. Which is fine, but you know because that's the analytics back end effectively but you know both are not very sort of heavy. We want to see database and the other is. Select seats app like a Java like runtime or something. So yeah but you know but you know it should even. I mean if there's low traffic it shouldn't be no problem running it on small hardware. That's what I'm saying. But if there is a lot of traffic then there's also it scales to be running on on multi CPUs and all of that hence the you know path. You're not you know mentioning the other you know potential engagement with open AI and others. Yeah. Actually, it's not the, I'm not exactly sure what project you're talking about, but we also, we've been working with the Icelandic government and with Midland and they're working with Open AI. There's also another potential engagement project on the cars that I've heard about connected to that, which is probably not the same that you're talking about best. So that's great. We should all have a lot of engagement on AI for sure. But yeah, I mean that would be no technical problems. In terms of scaling up, even if there's going to be millions of people participating, there's going to be no problem scaling up in terms of this technology because it's all quite you have APIs, you have databases, front end apps. I mean, yes, I think it would be well, it would be a lot easier actually to scale if you have already a new web app that is just a standalone thing, so you don't need to use all the. European Rails to build, you know, Yeah. So it will be a lot easy to scale that way because then the web up is sort of cast in cloud flare anyway. So, so even if there's millions of people downloading it, that rarely touches our servers, you know, so but aside from that, there's no technical problems running a constant, I mean Rails availability use obviously Rails for our voting system and so on. Like sometimes at the very heavy load here in Reykjavik, you know, not a very big setup. So we do a lot of load testing on that. And in terms of Rails and Rupee three specifically, it's not as fast as Note JS for example or Go or Java, but it's almost there. So I mean there's no, there's going to be no like bottlenecks in scaling something like that up.
+BN
+Beth Noveck (she/her)
+19:10
+So I think the I'd be very interested to know what the other engagements are. What I suggested to these guys from the Center for sorry, they're called the Collective Intelligence Project is that they should actually have more of a community source approach and not try to own all the engagements themselves, but to kind of be the keeper of a map, which is like, hey, Goblab is taking this piece and. What's her name in Taiwan? Audrey is taking this piece, and Deb Roy is going to take this piece because they can't do everything for themselves and they're worried too much about the perfect thing, and there's a lot of different questions to be asked. I just spent an hour with them talking about the question and trying to move them away from yet another question about risks in favor of something that's more centered around a set of use cases that actually educate people about what the technology does. And ask them which they're more excited about and where do they want to see more development and more investment. Because I think unless we, you know, there's way too much conversation in the abstract, that's completely pointless. And causing places like Open AI to throttle the technology such that things that you could do a week ago, you can't do now because it says I'm a large language model, I can't do that. Or you can see, you can see the lawyers now, you can see the thumbprints of the lawyers all over it. So anyway, I think there's lots of and I'm already seeing lots of requests. I'm talking to the the the national technology and sorry Telecommunications and information Administration, which is our Commerce Department that has a big rulemaking coming out about this. And they want to talk about the engagement and I have in my inbox the Attorney General of Massachusetts and the Attorney General of New York wanting to talk about engagement about this. So there is going to be so much demand for. Engagement that I think we need to start think I I think we I I think the tool is she getting the tools ready and sort of short order but also thinking about what are some of the and and in fact maybe just getting some of this stuff going. What the question is like I'm I really want us to think about the what what is the question or questions we want to ask in these contexts. You know what is your priorities then good for and some other platforms like I just think thinking about you know what are the right questions to ask with different platforms and I'm and I'm really excited about like it's so easy to write the prompts for all our ideas now using using Chachi, PT or Bart or whatever that like our ability to experiment with doing this is just so much infinitely easier. Well, yeah, I.
+RB
+Robert Bjarnason
+21:58
+I know, I know that like one of the things that Open AI I think is is the most interested in, you know, from their perspective is is it on, on alignment? You know, specifically on, on, on all the different aspects of alignment like biases on? The truth all of that stuff you know as as you mentioned as well like one day you could do something but then the other day the the models are not no I can't do that I you know it's I'm not aligned to do that anymore but anyway you know I mean that's absolutely agree and I will keep you updated if something moves on that if I hear something more on that I was sort of also know something speculative and I think the people powered people were also thinking about doing something if I. Well, they might also be a part of that, but. But that's what I I read somewhere in a in a tweet. It's a lot of plans. There's been so much hype with AI now like it's starting to feel a little bit now it's settling down a little bit, you know, and, but, but yeah, exciting times.
+BN
+Beth Noveck (she/her)
+23:10
+It is exciting. Who are, who else have you heard about that's actually doing, I mean, who's planning a big engagement that you're aware of?
+RB
+Robert Bjarnason
+23:18
+The only thing I I heard somewhere, you know, to sort a tweet or something about people powered, we've been working on something, you know, AI engagement. It did from that what I did read, there's a part of that thread that was sort of the skeptics engagement on AI, you know, that that sounded a little bit like that. That's fine. We should have all the different, you know, approaches but then. It's something I've been talking about, something that has come back. So basically I did the tweet with a video showing our demo and Greg, you know Open AI president, he retweeted it with a comment about the about the DPT for used for. Engagement in Iceland you know and it has like half a million views now the video you know so that's that's outside and then me then under government partners we started to talk and they sort of mentioned that it had come up from Open AI if we were interested in doing some sort of an engagement thing. So it's just at that stage I'm. We are working on, you know, small review documents about this, whatever. Who knows what's going to happen. Nothing might come from it, but I'll definitely keep you updated if something is looking that it would become something and I'll definitely get you guys involved.
+BN
+Beth Noveck (she/her)
+24:47
+So that's fantastic. I'd love to then connect in the folks at the. They're very lovely, the the women at. The Collective Intelligence Project and they're they also have Eli Pariser on their board of Public Digital. So I told him that I'm talking to you. So there's I think we were talking about collecting connecting Eli to you anyway because again his shop is building tools and the idea is not to replicate any of the stuff that you've done and we've been.
+RB
+Robert Bjarnason
+25:19
+A part.
+BN
+Beth Noveck (she/her)
+25:19
+Of that conversation with them, actually a.
+RB
+Robert Bjarnason
+25:21
+Little bit, yeah. so yeah yeah so but yeah so we'll yeah and and yeah so we'll see what comes out of that but i've actually been aside from sort of juggling i've just taken a total break from ai for like three four weeks now i've been working on this game called the land use game which we are doing as a part of an eu project called the phoenix project which is and we're doing it at the university of iceland so just show you a two minute demo we have time
+BN
+Beth Noveck (she/her)
+26:00
+Yeah, we love demo. Let me just see what's right after this so we know what do people have? I have enough time.
+RB
+Robert Bjarnason
+26:09
+So this is basically all about. That this large part of Iceland that are basically sort of for sort of Redistring I mean they're not a part of the national parks and basically it's all about choosing sort of different sort of land use areas and actually I can't zoom on the laptop I just realized that didn't work. It's a very I mean it's like pre alpha we. Yeah, we even don't have the right icons for everything. But basically you you choose like energy and then you, you know choose the area and you can sort of draw in the different sort of land use that you want to see. And and there's like a plane that sort of is flying the perimeter of the of the area. So you can see a little bit what's sort of going on. You can also mark in the areas like that as you fly and there's going to be some things from stupid I can't zoom but but anyway this is like a sort of a Google art style sort of an interface and so you select conservation, restoration, recreation, tourism, farming and energy. And this is going to be done in three different municipalities in. in in around iceland in three different areas this is just one of the areas here and that's that's a place of the three d model for one of our like a giant that's going to be roaming it's iceland has sort of four sort of like mythological creatures that protect it the one is a giant there's a track on there's a there's a wilshire and there's a big pool and so those will all be features in this featured in this Anyway, so yeah, and this is actually will be a part of, it's using your priorities as the back end and you'll be able to add like comments on the different sections. And then when people have participated in this first stage, then there's the second stage where we combine all the information of all the different land uses that people choose, you know, choose and we'll show this sort of. Like a bit of an animated view of what people, what were the most popular land uses in different areas and then there's going to be a debating interface. So on top of that. So yeah that's not ready yet. We sort of still, as I say this is going to be ready in a month or so. But but yeah. Anyway, so that was a quick demo. It's fun to do some 3 table once in a while as well, you know. You you're muted path.
+BN
+Beth Noveck (she/her)
+29:10
+Oh oh, I was just playing around with trying to use Dolly for kind of urban planning and image generations sort of. But that was a very that didn't work so well. This is very cool mid Journey or Dolly I was using. One of the I have a subscription to Mid Journey, so maybe I was in Mid Journey and I don't remember too many things to keep on top of when is this going to get debuted.
+RB
+Robert Bjarnason
+29:41
+So in about a month and then it's going to be like, well, I mean the software is going to be ready in a month, but then it's actually the project itself, the engagement itself with the people in the three different areas is going to happen in September, I think you know. so but it will be possible it's all data driven so you have those geo json files with the mark the areas and you upload like files for the models the three d models that are used for the different lantus types so it's totally data driven and it's going to be a part of like your priorities back end so you'll be able to deploy those games for any areas in the world we're actually using that's the only thing i mean everything is open source but except the tiles those are being Bing map tiles we have to pay for those. But you know it's still it's it's good quality. So you know it's a yeah, I mean it's worth it but then you just in your priorities you just put in the the the API key for that. So yeah it's gonna be on. Yeah. Anyway.
+BN
+Beth Noveck (she/her)
+30:45
+So should we come back to the very specific kind of timeline and need for the the? I forgot the name of the group again. Archer. Yes, just to make sure that we don't run out of time to finalize what we need to do there. Or do we? Do we have a clear road map forward?
+SB
+Sofia Bosch Gomez
+31:07
+Yes. So I just wanted to clarify if a June, perhaps early June, 2nd week of June deadline would work. We have a bit, as I said, more flexibility with this group. But just to kind of manage their expectations as well and and allowing us to prepare everything beforehand.
+RB
+Robert Bjarnason
+31:29
+I mean as I say from our perspective you know in terms of the technology then that's no problem. As I say we we are you know we are on track to have this ready for you for testing now before the end of this month which is you know this weekend coming up and. And then we'll have to do some testing obviously, but you you obviously need to set up some websites and make your own materials that I don't know about that, but at least from the tech call just you know like then we'll have a month to test and we'll respond quickly if there's any bugs, you know that comes up and so on. But for the larger, thank you. If we're talking about a very high profile, you know, a bigger engagement like that. i think that would be a perfect opportunity to design and create a new web app that's a super simple web app that does the user facing things with very simple results that are fun to use even three d even who knows but Yeah. So we would obviously need some time preferably it would be great to have a little bit of budget for that. But but if we do, if we can do this in some sort of a collaboration in terms of the design and requirements for it, then that would also be you know, because I mean it is in its core, it's so simple, you know, right.
+BN
+Beth Noveck (she/her)
+33:00
+And that's why the. That's what makes it harder. And I mean it's it's why it's worth investing in because it's just so it's just so useful. But I think we've had enough experience using it to have a list of changes that would make sense, some of which are just text based in terms of explanation of what's going on and how it works that I think that that would be very helpful.
+RB
+Robert Bjarnason
+33:29
+Yeah, but. But as I say, I mean the text if you have a mobile phone. i mean you definitely never want to have more than one third of the screen text i mean if you're more than one third of the screen
+BN
+Beth Noveck (she/her)
+33:38
+Yeah, yeah. I'm not talking about a lot of text. No. Yeah.
+RB
+Robert Bjarnason
+33:42
+But then usually we have like a help icon, so you can have a large, I mean that's usually like at the top bar. So you always have the help icon ready and then you can. Have unlimited HTML text, but I think the challenge is to how do we intuitively lead people to understand what it's about in terms of how you do the user interface. There was still mobile sets the UI. I mean the UI was originally obviously designed for desktop because at the time it was created there was nobody almost had like smartphones at least very few people and so. So the mobile experience and how it's set up, it's not ideal. And now as it is now, it could be set up in a much more intuitive way I think.
+AD
+Anirudh Dinesh
+34:25
+There's also on the on the on the ideas website. If you click Try a wiki survey, it shows a version of the tool with like tooltips, you know. So even some very simple tooltips I think might be a good start to to just direct people.
+RB
+Robert Bjarnason
+34:40
+Yeah. Yeah. We're like I we're like a little tutorial I mean like just on in in app tutorial where you can just. Yeah. Where it's just it can say next it will show you where things are and talk about them. You know in. Yeah in two sentences. Yeah I think that's yeah. I think that's a good idea sort of a.
+AD
+Anirudh Dinesh
+34:55
+We have. We have some very simple feedback from users. For example, one of the most common ones is. I've been voting now for. five minutes i've clicked over a hundred choices does this never end so people are you know people don't realize they can do it as many times or as few times as they want so some you know we we know very specifically what kind of questions come up and so we can have those as simple instructions
+RB
+Robert Bjarnason
+35:17
+Yeah, no. And and I think, I mean, that element, you know, would be much better to solve with a user interface component of some sort rather than having like a text that describes that you can do, do, do, do, do, do. X amount you know reach that but but maybe some sort of sort of a progress bar and maybe we could have like some sort of a our target is that we're gonna we wanna get 30 you know right. But then it would like go it would go up to the 30 and then like boom it's like bonus time and then you know you can just keep on going and bonus.
+AD
+Anirudh Dinesh
+35:50
+Gamify it? Yeah, I like that, Yeah.
+RB
+Robert Bjarnason
+35:52
+Yeah, yeah. Like, yeah, exactly. You know, so.
+AD
+Anirudh Dinesh
+35:56
+OK. And then I think the one other thing for the outputs list was we were trying to think of if there's ways that. GPD 4 could be of help in terms of, you know, clustering the statements of similar types so that you can show the output not not just on the basis of individual statements, but these are statements that rank highly because they're, you know, they're similar types of things like that, whether there's opportunities where we might be able to use AI.
+RB
+Robert Bjarnason
+36:27
+Yeah, I mean, I mean, obviously what comes out of all our ideas is, is, is the ranking. I mean, do people add their own answers? I mean. Vill ni starta eget torpet är så. Is that do you know how many I mean?
+AD
+Anirudh Dinesh
+36:43
+We, in our experience, some of the most sort of useful results that come out of all our ideas is the stuff people put in text boxes that are, you know, just sort of, I mean there's some very useful, there's some that are just not not helpful or or, you know? But there's there's some things which we definitely would not have added ourselves that we find from the from the text box. Some of them are similar to the ideas we've already added in the yeah, yeah, when we load it.
+RB
+Robert Bjarnason
+37:15
+I mean what I would, yes, absolutely. You know, you could use like TPT analysis of some of some that were added, but I also think it would be quite interesting to do. Analysis from multiple perspective on the results that the results is this ranked list of ideas about some subject and to do multiple types of analysis on saying like to say those are the ideas, those are the ideas that were ranked by the users like this. Please give us an analysis on the best way forward to implement this. That would be one and we could also have another one. You know that it deals with the challenges of implementing this or they can be 1 analyzing and saying given that this sort of sets, do you see some conflicts in the list and what needs to be further prioritized and things like that. I mean we could get also very interesting and also in sort of the web app interface useful for the user in a way. They could get instant based on their own selection for example. We could also extend it to that that we could have very short reviews based on your selection of the tiers. The future will look like this or something fun, I don't know, like something like that. So we could use TPT for both as a part of a fun short analysis for the user, but also then with all the data and all the rankings. You know, to analyze the whole whole, you know, data set. But but yeah, yeah, so interesting.
+AD
+Anirudh Dinesh
+38:57
+Yeah, we can put that on the road map, but I think we're set for the immediate sort of June engagement. I think we have the right next steps is just doing the testing next week, I think sometime next week. And then yeah, once we're done with the testing, we'll know what the specific To Do List is.
+RB
+Robert Bjarnason
+39:16
+Yeah. And we will, Yeah. And I mean, for this one in June, this engagement, I mean, how many people are you expecting? I mean, how big is it?
+SB
+Sofia Bosch Gomez
+39:27
+so the organization has never done anything like this before they said that if they just got a thousand people they would be extremely happy and so yeah
+BN
+Beth Noveck (she/her)
+39:38
+I'm not, I'm not optimistic about this one because I don't think the purpose. Is compelling enough.
+RB
+Robert Bjarnason
+39:49
+OK. Well, no, I was more what was the asking just for just for because we would be.
+BN
+Beth Noveck (she/her)
+39:54
+For load.
+RB
+Robert Bjarnason
+39:55
+Balances Yeah First live live project on on on the all our ideas on on our all ideas. You know cluster.
+BN
+Beth Noveck (she/her)
+40:05
+Which is why? Which is why it's good. It's good for that purpose. I mean, maybe I'll be pleasantly surprised and I'll be incorrect about this, which would be great. But I don't. I don't see. I don't know. Do you disagree, Sophia? That it will.
+SB
+Sofia Bosch Gomez
+40:20
+I I think that if they kind of piggyback with some of their other projects, but it's yeah, because they they want to feed a kind of document and agenda. So yes, the the purpose is not as compelling as something.
+BN
+Beth Noveck (she/her)
+40:38
+Yeah.
+RB
+Robert Bjarnason
+40:41
+Yeah, sounds good. And and how long is it running for that one?
+SB
+Sofia Bosch Gomez
+40:48
+So we want to encourage them to run it for three weeks just to, as Beth was saying it, create the sense of urgency or kind of give people just a timeline that is shorter to participate.
+RB
+Robert Bjarnason
+41:01
+Okay, that sounds good. And then I think in the meantime also. So if we can or you guys can think, think more about the, you know, maybe compiling some ideas for for a new web app and then we'll sort of just think about a bit how we trigger on that. I mean ideally if we could find some funding for it then that would be that would be ideal as always and especially if there's like we know there's going to be a big project on the horizon and it's maybe easier to. Sort of execute on it, but but I don't think that work will you know take more than you know a few weeks, but it will take a few weeks in a couple of weeks or something like that. I mean maybe a week if we could just focus on just that. It was just very hard but but because you know it's but I think because it's how simple it is. I think it's the design states of this to decide what goes into it, what are going to be the features and that are going to be even more critical you know with all the things we can leave out.
+BN
+Beth Noveck (she/her)
+42:04
+So that's all good and we can I think if you just tell us, give us the budget and the I would love for us to anticipate though other engagements. This is the first. So the question of what we can do by when, what the budget looks like for the different things we want to do. We absolutely intend to pay you for this work. So I think the other thing is that you know whatever Stefan, I'm not sure if you have a view of like things that you or Robert like, are there things we can help with, are the things we can do that will help alleviate the load, not because of the cost issue, but just you have a zillion things all going on right now. So if there are things that we want to accomplish that like. Would otherwise have to come six months from now, but that Stefan could help with if there are things we can contribute to in kind, So whatever is the best way to kind of align on that development schedule would be great. Do we? Can I do people? I have until 12, so if people have 15 more minutes, I don't know.
+SS
+Stephan Schmidt
+43:20
+Yes.
+RB
+Robert Bjarnason
+43:21
+For.
+BN
+Beth Noveck (she/her)
+43:22
+Sure so.
+RB
+Robert Bjarnason
+43:23
+Go ahead. So let me just quickly. So yeah, I mean as I say it would be really helpful in terms of you know that if you could work on the design in terms of at least the conceptual design, what goes into it and then you know help us also with some testing, but obviously that's also for your purpose. You would also do that probably anyway, but that will save also time, you know in terms of. and so so yeah and but yeah i mean you know the thing is like like for example with you know for this app you know you know it's incredible how about tpt four you know saving time like like this game it's the first it's the first time where basically ninety percent of the code is written by gpt four and i start with something you know i get some code out i you know and the thing is it's using like ccm open source three d library i've never used before i don't know anything about it so and it's been so useful like ninety percent of the code you know and but there's a lot of back and forth it writes something out i put it in the code there's errors i pasted it back in the errors that comes with the fix back and forth maybe three four times and even like you know that animated giant was working there like at one point it was facing down not animating and they said tbt is just facing down in the ground fix the code you know it's like okay yeah yeah yeah yeah we'll make it it's it's just incredible and i think also for you know schedule for creating the new web app will absolutely be You know, at least you know it would be more than a week or two if if we, you know, wouldn't have, you know, this sort of at least that for me, it saved me so much time, you know, it's incredible.
+BN
+Beth Noveck (she/her)
+45:21
+It is.
+SS
+Stephan Schmidt
+45:22
+I can definitely agree. Like what we That's what. That's how I'm writing all of the. Projects at the moment as well. I'm just like asking. I need this and this in notes and it just spits me out the code that I tested. If I get the error message I just feed it back and it just like makes the adjustments. It's.
+RB
+Robert Bjarnason
+45:42
+it's and one one great trick that i found in this in this work is that you know for example in the ccm three d library you know they have a whole like a lot of examples online So what I often do, I ask in my request. Here's my code. Here's what I want to do. Here's an example that works. You know, official example that works. And that works incredibly well. It just takes the sample it just gets it all together. I know my after this I mean I've been doing a lot of Copilot for two years or something but now I've but you know for a few months you know chat TBT and and TBT for playground as I mostly use now and then it's just yeah this is the first time I just have the have the whole thing done and I I am a bit sort of worried you know are my skills gonna you know go away you know it's gonna be two years from now and. And like you know, a chat TPT says no, no connection and I'm supposed to write something to save my life, but I can't do it anymore.
+SS
+Stephan Schmidt
+46:43
+Can I ask you about like over the weekend I installed like locally auto GPT? Yeah yeah my API key doesn't work anymore because I used up all my credits I think in my first month.
+RB
+Robert Bjarnason
+46:56
+Yeah, it's quick to run down the credits like that.
+SS
+Stephan Schmidt
+46:59
+Yeah, so while my question is like yeah, your experience with the API. and like basically using credits for for the work like can you give us a little bit like the source of our work like ratios so like are you going out of budget because like all of this like what i'm reading about with open ai they are almost creating their own currency with tokens it's it's just kind of like you know like a token is like zero zero zero two cents but like we don't know like it's it's not hundred characters are like two point two cents it's kind of like an algorithm connected to it which creates the token so i have a hard feeling to grasping a little bit of like the prices that would go in there so
+RB
+Robert Bjarnason
+47:45
+Yeah, I mean, I mean, we took for example. you know we took the whole seventeen hundred ideas from the my neighborhood project and like two thousand debate points or three thousand debate points or something like that and what we did this that we pre we preprocessed all that data with t p t four by creating a very short part very short online description a short description a full description a full description of the debate points and so on so we have the content in many many different like levels of detail if you want to say that so let me do like embeddings using cohere ai which is another and they have a really good multilingual embeddings which is great for icelandic and do the languages and so we also store that in a video database so when we are when the user is asking the bot about something we actually use the gpt three point five It's like a prompt that tells us in JSON what the user is asking, what is the user asking about what type of information this user wants and we break it down to different categories and then based on that we retrieve the data from the vector database. The text that is that we have pre created. So if the user is just asking about the list of ideas then we just get the very short description of the ideas. And we then because we need to send everything into TPT for API, so we're trying to have a short text as possible. Känt är ni där? Nej, men det är ju husets får ett nej, men det snart. but we did pay i think three hundred dollars for for doing a three three or four different import states as well the data so maybe eighty to ninety dollars for those seventeen hundred ideas and and three thousand debate points and also that was the sort of preprocessing because we wanted to i mean nobody's going to ask for all the data but we were like we were sending all the data into this preprocessing that will save us then on the On the on the long run because we have very short summaries of everything that we. Yeah. I mean yeah I mean it does sure feel like a new tax it's like Facebook tax or whatever social media tax you know. Yeah. I mean I mean what I I'm optimistic about this all how you know some of the sort of open source potential ways are here and but TPT 4 is so much better than everything else that's that's. that's you know i wouldn't want to like put even if if there's an open source model that is ok it's even if it's as good as three point five you know we want when we we want to analyze something we want to use the best analyzer right so but yeah i don't know it'll be interesting how it evolves but i don't think i mean i'm pretty sure the others are going to have a gpt for like model soon so there will be more competition at least
+SS
+Stephan Schmidt
+50:58
+Nice. That's helpful. Thanks.
+RB
+Robert Bjarnason
+51:00
+Yeah, yeah, I know. Yeah, hopefully. No, it is a, you know, it is a yeah, I mean in our experience then you know, both is like programming, but also with this and even in Icelandic, if you fill the context of TPT 4 with useful information, then you know it's there almost never any hallucinations. You know, it's like if the context is empty, it will come up with something, you know, but we just make sure it's never empty, at least says, you know, tell the user there's no data available for this, that's the context, you know. So, so we've taken care of the hallucination problem or I mean, well, that is taken care of by by not going into the database of TPT 4 itself, but you bring your own data to analyze. So Beth, you have questions more about potentially engagement?
+BN
+Beth Noveck (she/her)
+51:59
+No, I just thought if we had a few minutes left, we could talk about the question not Yes, I have a question about the question. Yes, so you started to talk about alignment before, but that's actually.
+RB
+Robert Bjarnason
+52:11
+Coming directly, so just the context for that.
+BN
+Beth Noveck (she/her)
+52:14
+About the question, yeah, yeah, yeah.
+RB
+Robert Bjarnason
+52:16
+It is the context for that actually, that. That actually comes from an interview. I heard it in an interview interview with Sam Altman. It was like I had it running like a two hour interview with LAX. That was his name and I heard that thing.
+BN
+Beth Noveck (she/her)
+52:31
+I think, yeah, go ahead.
+RB
+Robert Bjarnason
+52:34
+And he said that one of their most sort of pressing need for encasing and what they want to encase the public on was. Alignment, you know, and then we also.
+BN
+Beth Noveck (she/her)
+52:46
+Just say same. Same. Yeah, I just love to hear more about what? Because I don't remember that from the interview, but say more about that. But yeah, go.
+RB
+Robert Bjarnason
+52:55
+Ahead and then we also hear from our sources here about that's what they're most interested in engaging the public on and including issues that they have. They have ideas about having multiple sort of personalities, multiple types of alignment. Att du har en master alignment, att de que. Bumps and all of that, but then have like sort of user configurable alignments in terms of you could have a very root model if you wanted to and they would ask people about those sort of things and.
+BN
+Beth Noveck (she/her)
+53:24
+Can you put that in? How would you explain that to an ordinary person?
+RB
+Robert Bjarnason
+53:29
+Yes, yes. So basically so as testbt is created. You know, you know, it comes out very raw. You just turn it on. It just starts to talk like it just starts to like taper is and it can finish sentences for you and it's totally underlined. It is just like spooling out even racism or whatever. Just like that's what happens after we get the the the initial model out of there. And even like this funny thing, you just put it on and it will just, you know, forever until you turn the computer off. Just go over print out news articles and. And the analysis P and L's and anything just will go on forever just talking, you know, just, you know. And when you ask it to make it make a bomb, it will make you a bomb. They give you detailed you know like descriptions on that. So then there's this process that's what they call like an alignment process which which is basically sort of sort of reinforcement learning with human feedback where you know people using special like web from open AI. The Icelandic team used the same here to align it to speak better Icelandic and there are people that are ask ask a development version of of the model something and then there's like five options, 5 answers. And then you have to rank the answers to be as much aligned to you know how you would the model to you know. And then this is used to sort of fine tune the model you know so you can go and want you know all sorts of directions with this. You know and as we've seen you know there's definitely be you know you know with Bing. Bing has been like in my personal you're over aligned now is there so many issues that Bing just refuses to talk about You know it's like you know that that whole you know so so it's basically the alignment is just about how how well it is aligned to us as humans. But the problem is that we are also different so the alignment. To towards society, towards ideology, you know that's what they talk about. And in this and in the same interview then they were talking, they talked about like a public deliberation and and and don't remember exactly where I think, but some said something to a sense that we would have to be involved in any public engagement like that because we know what the main sort of issues are that we are dealing with whatever. That's what he said that. I'm not sure if that's right, but but that's what he said in that interview. But they wanted to be involved directly to be able to get as useful data out of it as possible.
+BN
+Beth Noveck (she/her)
+56:09
+Yeah. So I think the question though I have is, I mean, I understand that. I, I think the two questions are how do you ask the question? Yeah. So it's all well and good to talk about and align, you know, sort of aligning AI to people's values and goals and needs. And another thing to think about, how do I ask that of ordinary people? I mean my I think it is exactly in line with what I'm talking about, which is the an effort to get at where people, how people want to see these tools develop with reference to very concrete, specific use cases. That educate people about what the AI does at the same time as it asked them about it. My concern is very openended. Questions about values are completely meaningless for like if you haven't tried the tools and also too vague and don't lead to anything actionable. And so I it seems to me that all our ideas as in step one could be very useful. But the big question is what's the question? Yeah, in a way. How do you neutrally ask the question? So I don't have the answer to that in a great way.
+RB
+Robert Bjarnason
+57:21
+What are the some examples? And yes, they want to be throwing some examples around.
+BN
+Beth Noveck (she/her)
+57:25
+Yeah, I yeah I want us to solve this problem.
+RB
+Robert Bjarnason
+57:29
+Yeah, No, in terms of, you know, in terms of, I mean did you already have some examples what you were thinking about in terms of?
+BN
+Beth Noveck (she/her)
+57:35
+In terms of the answers or in terms?
+RB
+Robert Bjarnason
+57:37
+Of the questions.
+BN
+Beth Noveck (she/her)
+57:40
+No, no, what? We have two minutes left. So I want to hear what you would suggest. I mean, I give you examples.
+RB
+Robert Bjarnason
+57:45
+Well, yeah, I don't know. I mean, it's it's on, you know, as with all consultations that we are, you know, helping governments or nonprofits or whatever is that the question needs to be aligned with, you know, some usefulness on the other end. You know, So what is that? So who is listening on the other side? Who is? Who is receiving the? The data, is it actionable I should say, you know, so I think that's going to be the one of the key drivers of the question what can be asked. You know, I mean you could ask should we should we just pause a I for five years until we figure it out or whatever or like have answers to that. But on the other hand, you don't have any enforcement mechanism or you have nothing to say about it on the other side. So that's encouraging. I heard that that this already open a I and others have. Sort of indicated that they would be ready to listen. So I think that's sort of the question. Sorry, I don't have any concrete examples, but I think the questions need to be you know, connected to something actionable somewhere at the if it's with the no.
+BN
+Beth Noveck (she/her)
+58:57
+No, we're actually with the.
+RB
+Robert Bjarnason
+58:58
+Government, you know.
+BN
+Beth Noveck (she/her)
+59:00
+That we're we're already there, we're all agreed and there we're all agreed. There again, the idea is to provide some intelligence that's actually helpful for them. So to my mind, it's something about really understanding what is it that what's the direction people want to take things in? Because my concern is that right now they're gonna throttle it down so much that it becomes, you know, it becomes pretty useless. Yeah, I.
+RB
+Robert Bjarnason
+59:29
+Mean, I mean, I mean I feel that way with Bing. So. So I think one question that I think is important for the AI companies is how do we solve the problem of? Well, as well, I used the word alignment to that that we can have those models and we will have something use the type of transport that how do we align those. So is it a good idea that there's sort of multiple personalities that people have control over the alignment that people can control like they could just, you know, upload like a little little code snippet, like a personality code snippet that would make it like totally. Ultra right wing, you know, and with only, I mean minors, you know, like you know all the like some super alignment that would stop you know you know like people you know recreating the National Party or something. So that would be one question how do you you know, I mean is it is it a good idea that there's one constitution for that covers the whole model and totally makes them unusable as you say anyway.
+BN
+Beth Noveck (she/her)
+00:37
+OK, so we're gonna start. I'm gonna start a thread about the question. Is it a good idea? That might be the question. You just Yeah, we can't use the word alignment to ask. No, no, no question. Something else? Explain.
+RB
+Robert Bjarnason
+00:50
+Yeah something else that people understand like but but in that sense is is it is it good idea that that people can control how the models values are something like that?
+BN
+Beth Noveck (she/her)
+01:04
+OK. Alright, I'm.
+RB
+Robert Bjarnason
+01:05
+Gonna use your configurable values, yeah?
+BN
+Beth Noveck (she/her)
+01:08
+I got to go talk to a funder. Goodbye. Goodbye.
+RB
+Robert Bjarnason
+01:10
+As well. Thank you so much.
+BN
+Beth Noveck (she/her)
+01:13
+Good to see you.

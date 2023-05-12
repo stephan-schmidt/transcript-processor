@@ -1,20 +1,17 @@
 
-fs = require('fs').promises;
+const fs = require('fs').promises;
 const http = require('http');
 const Bottleneck = require('bottleneck');
 const { Configuration, OpenAIApi } = require("openai");
 const express = require('express');
 const multer = require('multer');
 
-const WebSocket = require('ws');
-const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
+const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY  }); // Replace HARDCODED_API_KEY with your actual API key
 const apiLimiter = new Bottleneck({ minTime: 1000, maxConcurrent: 1 });
 
 const app = express();
 const server = http.createServer(app);
 const upload = multer({ dest: 'uploads/' });
-
-const wss = new WebSocket.Server({ server });
 
 const basicAuth = require('express-basic-auth');
 
@@ -25,16 +22,12 @@ const authOptions = {
 
 app.use(basicAuth(authOptions));
 
-
 app.use(express.static('public'));
 
 app.post('/process', upload.single('file'), async (req, res) => {
   const inputFormat = req.body.format;
-  const apiKey = req.body.apiKey;
-  const configuration = new Configuration({ apiKey: apiKey });
   const chatData = await splitBySpeaker(req.file.path, inputFormat, configuration);
 
-  // Pass the configuration object here
   const summarizedData = await saveChatDataToCsv(chatData, configuration);
 
   await fs.unlink(req.file.path);
@@ -42,13 +35,9 @@ app.post('/process', upload.single('file'), async (req, res) => {
   res.status(200).json(summarizedData);
 });
 
-
-server.listen(3000,'0.0.0.0', () => {
+server.listen(3000, '0.0.0.0', () => {
   console.log('App listening on port 3000');
 });
-
-
-
 
 async function splitBySpeaker(input_file, inputFormat, configuration) {
   const text = await fs.readFile(input_file, 'utf-8');
@@ -129,7 +118,7 @@ async function summarizeChunk(chunk, retries = 3, configuration) {
     return await apiLimiter.schedule(async () => {
       const openai = new OpenAIApi(configuration);
 
-      // console.log(`Sending prompt: ${prompt}`); // Log the prompt before sending the request
+      console.log(`Sending prompt: ${prompt}`); // Log the prompt before sending the request
 
       const response = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
@@ -149,7 +138,7 @@ async function summarizeChunk(chunk, retries = 3, configuration) {
         temperature: 0.7,
       });
 
-      // console.log(`Received response: ${response.data.choices[0].message.content.trim()}`); // Log the received response
+      console.log(`Received response: ${response.data.choices[0].message.content.trim()}`); // Log the received response
 
       return response.data.choices[0].message.content.trim();
     });

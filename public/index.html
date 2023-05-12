@@ -116,16 +116,14 @@ body {
   </div>
   
   <script>
-    const spinner = document.getElementById('spinner');
+   const spinner = document.getElementById('spinner');
 
-    const form = document.getElementById('upload-form');
-    const resultsContainer = document.getElementById('results-container');
-    const processingDoneMessage = document.createElement('div');
+const form = document.getElementById('upload-form');
+const resultsContainer = document.getElementById('results-container');
 
-    form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
-
 
   spinner.classList.remove('hidden');
 
@@ -138,20 +136,18 @@ body {
     const summarizedData = await response.json();
     summarizedData.forEach(summary => {
       const summaryElement = document.createElement('div');
-      summaryElement.innerHTML = `<h3 class="font-bold">${summary.speaker}:</h3> ${summary.content}<br>`;
+      summaryElement.innerHTML = `<h3 class="font-bold">${summary.speaker}: Processing...</h3>`;
       resultsContainer.appendChild(summaryElement);
+
+      setTimeout(() => {
+        summaryElement.innerHTML = `<h3 class="font-bold">${summary.speaker}:</h3> ${summary.content}<br>`;
+      }, 1000);
     });
   } else {
     console.error('Error processing the transcript');
   }
-  processingDoneMessage.textContent = 'Processing complete!';
-processingDoneMessage.classList.add('text-green-500', 'font-bold', 'mb-4');
-resultsContainer.appendChild(processingDoneMessage);
-  spinner.classList.add('hidden');
 
-  setTimeout(() => {
-  processingDoneMessage.remove();
-}, 5000);
+  spinner.classList.add('hidden');
 });
 
 
