@@ -121,7 +121,7 @@ body {
       const formData = new FormData(form);
       spinner.classList.remove('hidden');
       // Open WebSocket connection when the form is submitted
-      const ws = new WebSocket(`ws://${location.host}/process`);
+      const ws = new WebSocket(`wss://${location.host}/process`);
 
       ws.onmessage = (message) => {
         const summary = JSON.parse(message.data);
