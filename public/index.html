@@ -117,36 +117,30 @@ body {
     const resultsContainer = document.getElementById('results-container');
 
     form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      spinner.classList.remove('hidden');
-      // Open WebSocket connection when the form is submitted
-      const ws = new WebSocket(`wss://${location.host}/process`);
+  e.preventDefault();
+  const formData = new FormData(form);
+  spinner.classList.remove('hidden');
 
-      ws.onmessage = (message) => {
-        const summary = JSON.parse(message.data);
-        const summaryElement = document.createElement('div');
-        summaryElement.innerHTML = `<h3 class="font-bold">${summary.speaker}:</h3> ${summary.content}<br>`;
-        resultsContainer.appendChild(summaryElement);
-      };
+  const response = await fetch('/process', {
+    method: 'POST',
+    body: formData,
+  });
 
-      ws.onopen = async () => {
-        const response = await fetch('/process', {
-          method: 'POST',
-          body: formData,
-        });
-
-        if (!response.ok) {
-          console.error('Error processing the transcript');
-          ws.close(); // Close WebSocket connection in case of an error
-        }
-      };
-
-      ws.onclose = () => {
-        spinner.classList.add('hidden');
-        console.log('WebSocket connection closed');
-      };
+  if (response.ok) {
+    const summarizedData = await response.json();
+    summarizedData.forEach(summary => {
+      const summaryElement = document.createElement('div');
+      summaryElement.innerHTML = `<h3 class="font-bold">${summary.speaker}:</h3> ${summary.content}<br>`;
+      resultsContainer.appendChild(summaryElement);
     });
+  } else {
+    console.error('Error processing the transcript');
+  }
+
+  spinner.classList.add('hidden');
+});
+
+
   </script>
 </body>
 </html>

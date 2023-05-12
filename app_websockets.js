@@ -19,16 +19,25 @@ const wss = new WebSocket.Server({ server });
 app.use(express.static('public'));
 
 app.post('/process', upload.single('file'), async (req, res) => {
+
+  
+
+  // Update the Configuration object with the new API Key
+
+
   const inputFormat = req.body.format;
   const chatData = await splitBySpeaker(req.file.path, inputFormat);
 
-  const summarizedData = await saveChatDataToCsv(chatData);
+  res.sendStatus(200);
+
+  wss.clients.forEach((client) => {
+    if (client.readyState === WebSocket.OPEN) {
+      saveChatDataToCsv(chatData, client);
+    }
+  });
 
   await fs.unlink(req.file.path);
-
-  res.status(200).json(summarizedData);
 });
-
 
 server.listen(3000, () => {
   console.log('App listening on port 3000');
@@ -152,9 +161,12 @@ async function summarizeChunk(chunk, retries = 3) {
 }
 
 
-async function saveChatDataToCsv(chatData) {
+
+
+async function saveChatDataToCsv(chatData, ws) {
   const maxTokens = 4096;
 
+  // Group content by speaker
   const groupedContent = {};
   chatData.forEach(({ speaker, content }) => {
     if (!groupedContent[speaker]) {
@@ -163,6 +175,7 @@ async function saveChatDataToCsv(chatData) {
     groupedContent[speaker] += ' ' + content;
   });
 
+  // Summarize content for each speaker
   const summarizedData = [];
   for (const [speaker, content] of Object.entries(groupedContent)) {
     const chunks = splitContentIntoChunks(content, maxTokens);
@@ -170,8 +183,6 @@ async function saveChatDataToCsv(chatData) {
     const summarizedContent = await summarizeChunk(summarizedChunks.join(' '));
 
     const summary = { speaker, content: summarizedContent };
-    summarizedData.push(summary);
+    ws.send(JSON.stringify(summary));
   }
-
-  return summarizedData;
 }
