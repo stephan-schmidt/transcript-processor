@@ -1,5 +1,5 @@
 
- fs = require('fs').promises;
+fs = require('fs').promises;
 const http = require('http');
 const Bottleneck = require('bottleneck');
 const { Configuration, OpenAIApi } = require("openai");
@@ -16,13 +16,26 @@ const upload = multer({ dest: 'uploads/' });
 
 const wss = new WebSocket.Server({ server });
 
+const basicAuth = require('express-basic-auth');
+
+const authOptions = {
+  users: { 'thegovlab': '123transcript456!' },
+  challenge: true,
+};
+
+app.use(basicAuth(authOptions));
+
+
 app.use(express.static('public'));
 
 app.post('/process', upload.single('file'), async (req, res) => {
   const inputFormat = req.body.format;
-  const chatData = await splitBySpeaker(req.file.path, inputFormat);
+  const apiKey = req.body.apiKey;
+  const configuration = new Configuration({ apiKey: apiKey });
+  const chatData = await splitBySpeaker(req.file.path, inputFormat, configuration);
 
-  const summarizedData = await saveChatDataToCsv(chatData);
+  // Pass the configuration object here
+  const summarizedData = await saveChatDataToCsv(chatData, configuration);
 
   await fs.unlink(req.file.path);
 
@@ -30,14 +43,14 @@ app.post('/process', upload.single('file'), async (req, res) => {
 });
 
 
-server.listen(3000, () => {
+server.listen(3000,'0.0.0.0', () => {
   console.log('App listening on port 3000');
 });
 
 
 
 
-async function splitBySpeaker(input_file, inputFormat) {
+async function splitBySpeaker(input_file, inputFormat, configuration) {
   const text = await fs.readFile(input_file, 'utf-8');
   let speakerRegex;
 
@@ -108,7 +121,7 @@ function splitContentIntoChunks(content, maxTokens) {
   return chunks;
 }
 
-async function summarizeChunk(chunk, retries = 3) {
+async function summarizeChunk(chunk, retries = 3, configuration) {
   const prompt = `Please summarize what the person expressed in about 300 words:\n\n${chunk}`;
   const maxTokens = 300;
 
@@ -116,7 +129,7 @@ async function summarizeChunk(chunk, retries = 3) {
     return await apiLimiter.schedule(async () => {
       const openai = new OpenAIApi(configuration);
 
-      console.log(`Sending prompt: ${prompt}`); // Log the prompt before sending the request
+      // console.log(`Sending prompt: ${prompt}`); // Log the prompt before sending the request
 
       const response = await openai.createChatCompletion({
         model: "gpt-3.5-turbo",
@@ -136,7 +149,7 @@ async function summarizeChunk(chunk, retries = 3) {
         temperature: 0.7,
       });
 
-      console.log(`Received response: ${response.data.choices[0].message.content.trim()}`); // Log the received response
+      // console.log(`Received response: ${response.data.choices[0].message.content.trim()}`); // Log the received response
 
       return response.data.choices[0].message.content.trim();
     });
@@ -152,7 +165,7 @@ async function summarizeChunk(chunk, retries = 3) {
 }
 
 
-async function saveChatDataToCsv(chatData) {
+async function saveChatDataToCsv(chatData, configuration) {
   const maxTokens = 4096;
 
   const groupedContent = {};
@@ -166,8 +179,8 @@ async function saveChatDataToCsv(chatData) {
   const summarizedData = [];
   for (const [speaker, content] of Object.entries(groupedContent)) {
     const chunks = splitContentIntoChunks(content, maxTokens);
-    const summarizedChunks = await Promise.all(chunks.map(chunk => summarizeChunk(chunk)));
-    const summarizedContent = await summarizeChunk(summarizedChunks.join(' '));
+    const summarizedChunks = await Promise.all(chunks.map(chunk => summarizeChunk(chunk,3,configuration)));
+    const summarizedContent = await summarizeChunk(summarizedChunks.join(' '),3,configuration);
 
     const summary = { speaker, content: summarizedContent };
     summarizedData.push(summary);

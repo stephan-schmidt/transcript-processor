@@ -74,7 +74,12 @@ body {
     
     <div class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 flex items-start">
       <form id="upload-form" enctype="multipart/form-data">
-     
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="apiKey">
+            OpenAI API Key
+          </label>
+          <input type="text" name="apiKey" id="apiKey" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your API key">
+        </div>
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="format">
             Input Format
@@ -115,10 +120,13 @@ body {
 
     const form = document.getElementById('upload-form');
     const resultsContainer = document.getElementById('results-container');
+    const processingDoneMessage = document.createElement('div');
 
     form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(form);
+
+
   spinner.classList.remove('hidden');
 
   const response = await fetch('/process', {
@@ -136,8 +144,14 @@ body {
   } else {
     console.error('Error processing the transcript');
   }
-
+  processingDoneMessage.textContent = 'Processing complete!';
+processingDoneMessage.classList.add('text-green-500', 'font-bold', 'mb-4');
+resultsContainer.appendChild(processingDoneMessage);
   spinner.classList.add('hidden');
+
+  setTimeout(() => {
+  processingDoneMessage.remove();
+}, 5000);
 });
 
 

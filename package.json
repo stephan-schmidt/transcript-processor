@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
-
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +15,7 @@
     "bottleneck": "^2.19.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-basic-auth": "^1.2.1",
     "fs": "^0.0.1-security",
     "jsdom": "^21.1.1",
     "json-2-csv": "^4.0.0",
@@ -26,5 +26,4 @@
     "qs": "^6.11.1",
     "ws": "^8.13.0"
   }
-
 }
